@@ -1,0 +1,103 @@
+<% include _header %>
+
+  <div class="main_wrapper">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Asset Tracking System</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Help</a></li>
+            <li>
+              <p class="navbar-text">Already have an account?</p>
+            </li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+              <ul id="login-dp" class="dropdown-menu">
+                <li>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <form class="form" role="form" method="POST" action="/login" accept-charset="UTF-8" id="login-nav">
+                        <div class="form-group">
+                          <label class="sr-only" for="exampleInputEmail2">Email address</label>
+                          <input name="username" type="text" class="form-control" id="exampleInputEmail2" placeholder="Username" required>
+                        </div>
+                        <div class="form-group">
+                          <label class="sr-only" for="exampleInputPassword2">Password</label>
+                          <input name="password" type="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+                          <div class="help-block text-right"><a href="">Forgot password?</a></div>
+                        </div>
+                        <div class="form-group">
+                          <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                        </div>
+                        <div class="checkbox">
+                          <label>
+                            <input type="checkbox"> <span>keep me logged-in</span>
+                          </label>
+                        </div>
+                      </form>
+                    </div>
+                    <div class="bottom text-center">
+                      <span>New here ?</span> <a href="#"><b>Join Us</b></a>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <!-- signup -->
+    <div class="container">
+      <h2 class="text-center">Manage your assets smartly within few clicks!</h2>
+      <div class="row">
+        <section>
+          <form role="form" action="/" id="signup_form" method="POST">
+            <h3 class="text-center">Signup</h3>
+
+            <div class="col-sm-6 col-sm-offset-3">
+
+              <div class="form-group">
+                <label class="control-label">Full Name</label>
+                <input name="fullName" minlength="3" maxlength="100" type="text" required class="form-control" placeholder="Mr. X" />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Username</label>
+                <input name="username" minlength="4" maxlength="16" type="text" required class="form-control" placeholder="abcde" />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Email</label>
+                <input name="email" maxlength="100" type="email" required class="form-control" placeholder="abc@example.com" />
+              </div>
+
+              <div class="form-group">
+                <label class="control-label">Password</label>
+                <input name="password" maxlength="16" minlength="6" type="password" required class="form-control" placeholder="********" />
+              </div>
+
+              <button type="submit" class="btn btn-primary pull-right">Submit</button>
+
+            </div>
+            <div class="col-sm-3"></div>
+
+
+          </form>
+        </section>
+      </div>
+    </div>
+
+  </div>
+
+  <% include _footer %>

@@ -1,0 +1,59 @@
+<% include ../_header %>
+
+  <div class="main_wrapper">
+    <!-- top nav -->
+    <% include ../_topnav %>
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <% include ../_sidebar %>
+
+            <!-- contents strt -->
+            <div class="contents">
+              <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2 main">
+                <h1 class="text-center">Company Name</h1>
+                <h1 class="page-header">Add Asset</h1>
+                <div class="add_asset">
+                  <div class="col-sm-12 col-md-8">
+                    <form method="POST" action="/assets/new">
+                      <div>
+                        <div>
+                          Tag:
+                          <br>
+                          <input name="tag" maxlength="100" type="text" required="required" class="box" placeholder="Type tag" />
+                        </div>
+
+                        <div>
+                          Type:
+                          <input name="type" maxlength="100" type="text" required="required" class="box" placeholder="Type here" />
+                        </div>
+
+                        <div>
+                          Assign To:
+                          <input name="assigned_to" maxlength="50" type="text" class="box" placeholder="Assign here" />
+                        </div>
+
+                        <div>
+                          Location:
+                          <input name="location" maxlength="50" type="text" required="required" class="box" placeholder="Type location" />
+                        </div>
+
+
+                        <div>
+                          <input type="submit" value="submit" class="button" />
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- contents end -->
+
+        </div>
+      </div>
+
+  </div>
+
+  <% include ../_footer %>

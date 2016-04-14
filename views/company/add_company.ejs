@@ -1,0 +1,58 @@
+<% include ../_header %>
+
+  <div class="main_wrapper">
+    <!-- top nav -->
+    <% include ../_topnav %>
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <% include ../_sidebar %>
+
+        <!-- contents strt -->
+        <div class="contents">
+          <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2 main">
+            <h1 class="text-center">Company Name</h1>
+            <h1 class="page-header">Add Company</h1>
+            <section>
+              <form role="form" action="/companies/new" id="signup_form" method="POST">
+
+                <div class="row">
+                  <div class="col-sm-12 col-md-8">
+
+                    <div class="form-group">
+                      <label class="control-label">Comapny Name </label>
+                      <input name="companyName" minlength="3" maxlength="100" type="text" required class="form-control" placeholder="Awesome Company LTD" />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Company Email </label>
+                      <input name="comEmail" minlength="3" maxlength="100" type="text" required class="form-control" placeholder="acl@example.com" />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Comapny Phone </label>
+                      <input name="companyPhone" minlength="3" maxlength="100" type="text" required class="form-control" placeholder="+880 1719431398" />
+                    </div>
+
+                    <div class="form-group">
+                      <label class="control-label">Comapny Address </label>
+                      <input name="companyAddress" minlength="3" maxlength="100" type="text" required class="form-control" placeholder="Comapny Address" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary pull-right">Submit</button>
+
+                  </div>
+                </form>
+                </div>
+            </section>
+          </div>
+        </div>
+        <!-- contents end -->
+
+      </div>
+    </div>
+
+  </div>
+
+  <% include ../_footer %>

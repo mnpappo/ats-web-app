@@ -14,36 +14,42 @@
               <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 col-lg-10 col-lg-offset-2 main">
                 <h1 class="text-center">Company Name</h1>
                 <h1 class="page-header">Add User</h1>
-                <div class="add_user">
-                  <form>
-                    <div>
+                <div class="col-sm-12 col-md-8">
+                  <div class="add_user">
+                    <form method="POST" action="/users/new">
                       <div>
-                        Name:
+                        <div>
+                          Name:
+                          <br>
+                          <input name="fullName" maxlength="100" type="text" required="required" class="box" placeholder="Type your name" />
+                        </div>
+                        <div>
+                          Username:
+                          <input name="username" maxlength="100" type="text" required="required" class="box" placeholder="Username" />
+                        </div>
+                        <div>
+                          Email:
+                          <input name="email" maxlength="100" type="email" required="required" class="box" placeholder="Type your email" />
+                        </div>
+                        <div>
+                          Password:
+                          <input name="password" maxlength="50" type="password" required="required" class="box" placeholder="Type your password" />
+                        </div>
+                        <div>
+                          User type:
+                          <select class="box" name="userType">
+                            <option>Admin</option>
+                            <option>Manager</option>
+                            <option>Employee</option>
+                          </select>
+                        </div>
                         <br>
-                        <input maxlength="100" type="text" required="required" class="box" placeholder="Type your name" />
+                        <div>
+                          <input type="submit" value="submit" class="btn btn-primary pull-right" />
+                        </div>
                       </div>
-                      <div>
-                        Email:
-                        <input maxlength="100" type="email" required="required" class="box" placeholder="Type your mail" />
-                      </div>
-                      <div>
-                        Password:
-                        <input maxlength="50" type="password" required="required" class="box" placeholder="Type your password" />
-                      </div>
-                      <div>
-                        User type:
-                        <select class="box">
-                          <option>Admin</option>
-                          <option>Manager</option>
-                          <option>Employee</option>
-                        </select>
-                      </div>
-                      <div>
-                        <input type="reset" value="reset" class="button" />
-                        <input type="submit" value="submit" class="button" />
-                      </div>
-                    </div>
-                  </form>
+                    </form>
+                  </div>
                 </div>
               </div>
             </div>

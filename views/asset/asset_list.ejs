@@ -21,63 +21,35 @@
                         <tr>
                           <th>Tag</th>
                           <th>Location</th>
-                          <th>Added on</th>
+                          <th>Asset Added on</th>
                           <th>Assigned to</th>
-                          <th>Last Edit</th>
+                          <th>Last Assined on</th>
                         </tr>
                       </thead>
                       <tbody>
+                        <% for(var i=1; i < assets.length; i++) { %>
                         <tr>
-                          <td>AX-12345678</td>
-                          <td>Building-B, Room-404</td>
-                          <td>22 March,2016</td>
-                          <td>Mr. Y</td>
-                          <td>23 March,2016</td>
+                          <td>
+                            <a class="user-link" href="/assets/<%= assets[i].objectId %>"><%= assets[i].tag %></a>
+                          </td>
+                          <td><%= assets[i].location %></td>
+                          <td><%= fromNow(assets[i].createdAt) %></td>
+                          <td><%= assets[i].assigned_to %></td>
+                          <td><%= fromNow(assets[i].updatedAt) %></td>
                         </tr>
-
-                        <tr>
-                          <td>AX-12345678</td>
-                          <td>Building-B, Room-404</td>
-                          <td>22 March,2016</td>
-                          <td>Mr. Y</td>
-                          <td>23 March,2016</td>
-                        </tr>
-
-                        <tr>
-                          <td>AX-12345678</td>
-                          <td>Building-B, Room-404</td>
-                          <td>22 March,2016</td>
-                          <td>Mr. Y</td>
-                          <td>23 March,2016</td>
-                        </tr>
-
-                        <tr>
-                          <td>AX-12345678</td>
-                          <td>Building-B, Room-404</td>
-                          <td>22 March,2016</td>
-                          <td>Mr. Y</td>
-                          <td>23 March,2016</td>
-                        </tr>
-
-                        <tr>
-                          <td>AX-12345678</td>
-                          <td>Building-B, Room-404</td>
-                          <td>22 March,2016</td>
-                          <td>Mr. Y</td>
-                          <td>23 March,2016</td>
-                        </tr>
+                        <% } %>
 
                       </tbody>
                     </table>
 
-                    <ul class="pagination">
+                    <!-- <ul class="pagination">
                       <li><a href="#">«</a></li>
                       <li><a href="#">1</a></li>
                       <li><a href="#">2</a></li>
                       <li><a href="#">3</a></li>
                       <li><a href="#">4</a></li>
                       <li><a href="#">»</a></li>
-                    </ul>
+                    </ul> -->
 
                   </div>
                 </div>

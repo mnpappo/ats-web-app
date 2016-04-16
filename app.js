@@ -40,7 +40,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // set api url
-app.locals.api = 'http://localhost:1337/parse/';
+app.locals.api_url = 'https://ats-api.scalingo.io/parse/';
 app.locals.appId = 'myAppId';
 
 // bind controllers with url pattern

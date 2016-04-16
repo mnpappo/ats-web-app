@@ -3,9 +3,40 @@ var request = require('request');
 var express = require('express');
 var router = express.Router();
 
+var api_url = 'https://ats-api.scalingo.io/parse/';
+var appId = 'myAppId';
+
 /* GET landing page. */
 router.get('/', function(req, res) {
-  res.render('landing');
+
+  request({
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Parse-Application-Id': appId
+    },
+    uri: api_url,
+    method: "GET"
+  },
+  function(error, response, body) {
+    if(response.body != "null" && response.statusCode == 200){
+
+      var user = JSON.parse(response.body);
+
+      if (user.username) {
+        var user = JSON.parse(response.body);
+        res.render('dashboard', {user: user});
+      }
+      else {
+        res.send("Coudn't get data from parse");
+      }
+    }
+    else if (response.body == "null" && response.statusCode == 200) {
+      res.render('landing');
+    }
+    else {
+      res.json(error);
+    }
+  });
 
 });
 
@@ -18,29 +49,25 @@ router.post('/', function(req, res) {
     headers: {
       'Content-Length': contentLength,
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/",
+    uri: api_url,
     method: "POST",
     form: params
   },
   function(error, response, body) {
-    //Check for right status code
+
     if(response){
-      console.log('user created succesfilly');
       console.log(response);
       if (response.body.code) {
         console.log(response.body.code);
         res.send(response.body.message);
       }
       else {
-        res.redirect('http://127.0.0.1/parse/dashboard');
+        res.redirect('/dashboard');
       }
     }
     else if (error) {
-      console.log(response);
-      console.log(body);
-      console.log(error);
       res.json(error);
     }
   });
@@ -54,35 +81,28 @@ router.get('/dashboard', function(req, res, next) {
   request({
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/dashboard",
+    uri: api_url,
     method: "GET"
   },
   function(error, response, body) {
-    //Check for right status code
-    if(response){
-      console.log(response.body);
-      var user = JSON.parse(response.body);
-      //res.json(response);
-      // res.render('dashboard');
+    if(response.body != "null" && response.statusCode == 200){
 
-      if (response.body == "null" && response.statusCode == 200) {
-        res.redirect('/');
-      }
-      else if (user.username) {
+      var user = JSON.parse(response.body);
+
+      if (user.username) {
         var user = JSON.parse(response.body);
-        //res.json(response);
         res.render('dashboard', {user: user});
       }
       else {
         res.send("Coudn't get data from parse");
       }
     }
-    else if (error) {
-      console.log(response);
-      console.log(body);
-      console.log(error);
+    else if (response.body == "null" && response.statusCode == 200) {
+      res.render('landing');
+    }
+    else {
       res.json(error);
     }
   });
@@ -93,25 +113,22 @@ router.get('/dashboard', function(req, res, next) {
 router.post('/login', function(req, res, next) {
   var params = req.body;
   var contentLength = params.length;
-  console.log(params);
 
   request({
     headers: {
       'Content-Length': contentLength,
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/login",
+    uri: api_url+"login",
     method: "POST",
     form: params
   },
   function(error, response, body) {
-    //Check for right status code
     if(response){
       var user = JSON.parse(response.body);
-      //res.json(user);
+      // res.json(response);
       if (user.username) {
-        console.log('Successfully logged in');
         res.redirect('/dashboard');
       }
       else if (user.code == 101) {
@@ -122,9 +139,6 @@ router.post('/login', function(req, res, next) {
       }
     }
     else if (error) {
-      console.log(response);
-      console.log(body);
-      console.log(error);
       res.json(error);
     }
   });
@@ -133,49 +147,46 @@ router.post('/login', function(req, res, next) {
 
 // logout
 router.get('/logout', function(req, res) {
+
   request({
     headers: {
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/logout",
+    uri: api_url+"logout",
     method: "GET"
   },
   function(error, response, body) {
-    // res.json(response);
     console.log(response);
 
     if (response.body == "null" && response.statusCode == 200) {
       res.redirect('/');
     }
   });
+
 });
 
 
 // get current profile page
 router.get('/profile', function(req, res, next) {
+
   request({
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/profile",
+    uri: api_url+"profile",
     method: "GET"
   },
   function(error, response, body) {
-    //Check for right status code
     if(response){
       var user = JSON.parse(response.body);
-      //res.json(user);
       res.render('profile', {user : user});
     }
     else if (error) {
-      console.log(response);
-      console.log(body);
-      console.log(error);
       res.json(error);
     }
   });
-  // res.render('profile');
+
 });
 
 module.exports = router;

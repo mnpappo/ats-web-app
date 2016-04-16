@@ -2,9 +2,34 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
+var api_url = 'https://ats-api.scalingo.io/parse/';
+var appId = 'myAppId';
+
 // get companies listing
 router.get('/', function(req, res, next) {
-  res.render("company/company_list");
+  request({
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Parse-Application-Id': appId
+    },
+    uri: api_url+"companies",
+    method: "GET"
+  },
+  function(error, response, body) {
+    //res.json(JSON.parse(response.body));
+
+    if(response.body != "null" && response.statusCode == 200){
+      var companies = JSON.parse(response.body);
+      res.render('company/company_list', {companies: companies});
+    }
+    else if (response.body == "null" && response.statusCode == 200) {
+      res.render('landing');
+    }
+    else {
+      res.json(error);
+    }
+  });
+
 });
 
 // add new company
@@ -22,9 +47,9 @@ router.post('/new', function(req, res, next) {
     headers: {
       'Content-Length': contentLength,
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/companies/new",
+    uri: api_url+"companies/new",
     method: "POST",
     form: params
   },

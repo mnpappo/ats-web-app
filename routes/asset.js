@@ -2,9 +2,34 @@ var express = require('express');
 var request = require('request');
 var router = express.Router();
 
+var api_url = 'https://ats-api.scalingo.io/parse/';
+var appId = 'myAppId';
+
 // get assets listing
 router.get('/', function(req, res, next) {
-  res.render("asset/asset_list");
+  request({
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Parse-Application-Id': appId
+    },
+    uri: api_url+"assets",
+    method: "GET"
+  },
+  function(error, response, body) {
+    //res.json(JSON.parse(response.body));
+
+    if(response.body != "null" && response.statusCode == 200){
+      var assets = JSON.parse(response.body);
+      res.render('asset/asset_list', {assets: assets});
+    }
+    else if (response.body == "null" && response.statusCode == 200) {
+      res.render('landing');
+    }
+    else {
+      res.json(error);
+    }
+  });
+
 });
 
 // add new asset
@@ -22,9 +47,9 @@ router.post('/new', function(req, res) {
     headers: {
       'Content-Length': contentLength,
       'Content-Type': 'application/x-www-form-urlencoded',
-      'X-Parse-Application-Id': 'myAppId'
+      'X-Parse-Application-Id': appId
     },
-    uri: "http://localhost:1337/parse/assets/new",
+    uri: api_url+"assets/new",
     method: "POST",
     form: params
   },
@@ -47,7 +72,30 @@ router.post('/new', function(req, res) {
 
 // get a asset
 router.get('/:id', function(req, res){
-  res.render("asset/single_asset");
+  var object_id = req.params.id;
+
+  request({
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-Parse-Application-Id': 'myAppId'
+    },
+    uri: api_url+"assets/"+object_id,
+    method: "GET"
+  },
+  function(error, response, body) {
+    // res.json(JSON.parse(response.body));
+
+    if(response.body != "null" && response.statusCode == 200){
+      var asset = JSON.parse(response.body);
+      res.render('asset/single_asset', {asset: asset});
+    }
+    else if (response.body == "null" && response.statusCode == 200) {
+      res.render('landing');
+    }
+    else {
+      res.json(error);
+    }
+  });
 });
 
 // update a asset
